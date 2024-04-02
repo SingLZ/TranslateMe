@@ -12,7 +12,11 @@ struct ContentView: View {
     @State private var inputText = ""
     @State private var translatedText = ""
     @State private var translationHistory: [String] = []
+    @State private var selectedSourceLanguage = "en"
+        @State private var selectedTargetLanguage = "es"
     @State private var showingHistory = false
+    
+    let languages = ["en", "es", "fr", "de"]
     
     init() {
             messageManager.fetchTranslationHistory() // Fetch translation history when ContentView initializes
@@ -21,18 +25,33 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Picker("Source Language", selection: $selectedSourceLanguage) {
+                                    ForEach(languages, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .padding()
+                                
+                Picker("Target Language", selection: $selectedTargetLanguage) {
+                                    ForEach(languages, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .padding()
+                
                 TextField("Enter text to translate", text: $inputText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
                 Button(action: {
                     // Call translateMessage function from MessageManager
-                    messageManager.translateText(inputText, sourceLanguage: "en", targetLanguage: "es") { translatedText in
+                    messageManager.translateText(inputText, sourceLanguage: selectedSourceLanguage, targetLanguage: selectedTargetLanguage) { translatedText in
                             DispatchQueue.main.async {
                                 if let translatedText = translatedText {
                                     self.translatedText = translatedText
-                                    // Add translated text to history
-                                    translationHistory.append(translatedText)
+                                    self.messageManager.translationHistory.append(translatedText)
                                 } else {
                                     self.translatedText = "Error translating text"
                                 }
