@@ -26,7 +26,7 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-[![Video Title](http://img.youtube.com/vi/hHmtyvLvXa4I/0.jpg)](https://www.youtube.com/shorts/hHmtyvLvXa4)
+[![Video Title](http://img.youtube.com/vi/hHmtyvLvXa4/0.jpg)](https://www.youtube.com/shorts/hHmtyvLvXa4)
 
 ## Notes
 
